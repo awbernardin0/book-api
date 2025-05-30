@@ -1,9 +1,16 @@
-const request = require('supertest');
-const express = require('express');
-const bodyParser = require('body-parser');
-const BookRepository = require('../repositories/booksRepository');
-const BooksService    = require('../services/booksService');
-const BooksController = require('../controllers/booksController');
+import request from 'supertest';
+import express from 'express';
+import bodyParser from 'body-parser';
+import BookRepository from '../repositories/booksRepository';
+import BooksService from '../services/booksService';
+import BooksController from '../controllers/booksController';
+
+interface TestBook {
+  title: string;
+  author: string;
+  publishedDate: string;
+  genre: string;
+}
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,22 +21,24 @@ const service = new BooksService(repo);
 const controller = new BooksController(service);
 app.use('/api/books', controller.router);
 
-let server;
+let server: any;
 beforeAll(() => {
   server = app.listen(4000);
 });
+
 afterAll((done) => {
   server.close(done);
 });
 
 describe('Books API', () => {
   it('should perform CRUD operations', async () => {
-    const newBook = {
+    const newBook: TestBook = {
       title: 'Test Book',
       author: 'John Doe',
       publishedDate: '2020-01-01',
       genre: 'Fiction'
     };
+
     const createResp = await request(app).post('/api/books').send(newBook);
     expect(createResp.status).toBe(201);
     expect(createResp.body).toHaveProperty('id');
@@ -50,4 +59,4 @@ describe('Books API', () => {
     const getAfterDelete = await request(app).get(`/api/books/${bookId}`);
     expect(getAfterDelete.status).toBe(404);
   });
-});
+}); 
