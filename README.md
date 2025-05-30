@@ -9,11 +9,12 @@ A RESTful API for managing books, built with Express.js and TypeScript.
 - TypeScript for type safety
 - Express.js for routing and middleware
 - Clean architecture with separation of concerns
+- Automated tests with Jest and Supertest
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- Node.js (v16 or higher)
+- npm (v8 or higher)
 
 ## Installation
 
@@ -76,11 +77,11 @@ interface Book {
 ```
 book-api/
 ├── controllers/     # Request handlers
-├── services/       # Business logic
-├── repositories/   # Data access
-├── validators/     # Input validation
-├── dist/          # Compiled JavaScript
-└── tests/         # Test files
+├── services/        # Business logic
+├── repositories/    # Data access
+├── validators/      # Input validation
+├── dist/            # Compiled JavaScript
+└── tests/           # Test files
 ```
 
 ## Scripts
@@ -88,7 +89,7 @@ book-api/
 - `npm run dev` - Run development server with hot reloading
 - `npm run build` - Compile TypeScript to JavaScript
 - `npm start` - Run the compiled JavaScript
-- `npm test` - Run tests
+- `npm test` - Run tests with Jest and TypeScript
 
 ## License
 
@@ -101,9 +102,13 @@ MIT
 
 ## Testing
 
+The project uses Jest and ts-jest for running TypeScript tests. To run all tests:
+
 ```bash
 npm test
 ```
+
+You should see output indicating all tests pass. Make sure you are using Node.js v16 or higher for compatibility with ts-jest and modern JavaScript features.
 
 ## Docker
 
